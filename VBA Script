@@ -1,0 +1,134 @@
+Sub stocks()
+
+Dim Counter As Integer
+Dim Summer As Double
+Dim Price1 As Double
+Dim Price2 As Double
+
+Dim ws As Worksheet
+Dim starting_ws As Worksheet
+Set starting_ws = ActiveSheet 'remember which worksheet is active in the beginning
+
+For Each ws In ThisWorkbook.Worksheets
+    ws.Activate
+         
+Counter = 1
+Summer = 0
+
+Range("I1") = "Ticker"
+Range("L1") = "Volume"
+Range("J1") = "Yearly Change"
+
+ LastRow = Cells(Rows.Count, "A").End(xlUp).Row - 1
+
+For I = 2 To LastRow
+
+        If Cells(I, 1) = Cells(I + 1, 1) Then
+        
+        Summer = Summer + Cells(I, 7)
+        
+        End If
+        
+       'find first ticker change, but price can't be 0...bc of IPO
+     If (Cells(I, 1) <> Cells(I - 1, 1) And Cells(I, 3) <> 0) Then
+        
+        Price1 = Cells(I, 3)
+            
+            'For stocks that IPO'd mid year
+        ElseIf (Cells(I - 1, 1) = Cells(I, 1) And Cells(I, 3) <> 0) And Cells(I - 1, 3) = 0 Then
+            
+            Price1 = Cells(I, 3)
+            
+        ElseIf Cells(I, 3) = 0 Then
+            
+            Price1 = 0
+           
+    End If
+
+    If Cells(I, 1) <> Cells(I + 1, 1) Then
+    
+         Counter = Counter + 1
+    
+         Cells(Counter, 9) = Cells(I, 1)
+         
+         Cells(Counter, 12) = Summer + Cells(I, 7)
+         
+        'reset volume summation
+         Summer = 0
+         
+         'year end price equal to last closing price
+         Price2 = Cells(I, 6)
+         
+         'price change y/y
+         Cells(Counter, 10) = Price2 - Price1
+    
+       'percent change
+       'avoid divide by zero error
+       If Price1 = 0 Then
+       Cells(Counter, 11) = 0
+       Else:  Cells(Counter, 11) = (Price2 / Price1) - 1
+        End If
+           'percent format
+            Cells(Counter, 11).NumberFormat = "0.00%"
+        Range("K1") = "% Change"
+        Cells(Counter, 13) = Price1
+        Cells(Counter, 14) = Price2
+        Range("M1") = "Price 1"
+        Range("N1") = "Price 2"
+    
+    End If
+    
+    'conditional formatting
+         If Cells(Counter, 10) > 0 Then
+            Cells(Counter, 10).Interior.ColorIndex = 4
+            Else: Cells(Counter, 10).Interior.ColorIndex = 3
+        End If
+                
+Next I
+
+Lastrow2 = Cells(Rows.Count, "K").End(xlUp).Row - 1
+
+Dim dblMax
+Dim r As Range
+
+Range("Q1") = "Ticker"
+Range("R1") = "Value"
+Range("P2") = "Greatest Increase"
+Range("P3") = "Greatest Decrease"
+Range("P4") = "Most Volume"
+
+'Worksheet function MAX returns the largest value in a range
+
+dblMax = Application.WorksheetFunction.Max(Range("K:K"))
+
+Range("R2") = dblMax
+'percent format
+  Range("R2").NumberFormat = "0.00%"
+'find max's row location and then does a look up for ticker
+Range("Q2") = Cells((WorksheetFunction.Match(dblMax, Range("K:K"), 0)), 9)
+
+'^min
+
+dblMin = Application.WorksheetFunction.Min(Range("K:K"))
+
+Range("R3") = dblMin
+
+  Range("R3").NumberFormat = "0.00%"
+
+Range("Q3") = Cells((WorksheetFunction.Match(dblMin, Range("K:K"), 0)), 9)
+
+'^max volume
+
+dblMaxV = Application.WorksheetFunction.Max(Range("L:L"))
+
+Range("R4") = dblMaxV
+'find max's row location and then does a look up for ticker
+Range("Q4") = Cells((WorksheetFunction.Match(dblMaxV, Range("L:L"), 0)), 9)
+
+Next
+
+starting_ws.Activate 'activate the worksheet that was originally active
+
+End Sub
+
+
