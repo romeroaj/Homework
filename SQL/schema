@@ -1,0 +1,54 @@
+DROP TABLE IF EXISTS departments CASCADE;
+DROP TABLE IF EXISTS dept_emp CASCADE;
+DROP TABLE IF EXISTS dept_manager CASCADE;
+DROP TABLE IF EXISTS employees CASCADE;
+DROP TABLE IF EXISTS salaries CASCADE;
+DROP TABLE IF EXISTS titles CASCADE;
+
+CREATE TABLE employees (
+	emp_no INT primary key,
+	birth_date date not null,
+	first_name varchar not null,
+	last_name varchar not null,
+	gender varchar(1),
+	hire_date date not null
+);	
+
+CREATE TABLE departments (
+    dept_no VARCHAR primary key,
+    dept_name VARCHAR
+);
+
+CREATE TABLE dept_emp (
+    emp_no INT,
+    dept_no VARCHAR,
+	from_date date,
+	to_date date,
+	FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+	FOREIGN KEY (dept_no) REFERENCES departments(dept_no),
+);
+
+CREATE TABLE dept_manager (
+    dept_no VARCHAR,
+	emp_no INT primary key,
+	from_date date,
+	to_date date,
+	FOREIGN KEY (dept_no) REFERENCES departments(dept_no),
+	FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+);	
+	
+CREATE TABLE salaries (
+	emp_no INT,
+	FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+	salary int not null,
+	from_date date,
+	to_date date
+);	
+
+CREATE TABLE titles (
+	emp_no INT,
+	FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+	title varchar not null,
+	from_date date,
+	to_date date
+);	
