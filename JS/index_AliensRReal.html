@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>www.ALIENS-R-REAL.com</title>
+  <!-- reset css -->
+  <link rel="stylesheet" type="text/css" href="style/reset.css">
+  <!-- bootstrap 4 stylesheet --> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- my own stylesheet -->
+  <link rel="stylesheet" type="text/css" href="style/styles.css">
+
+  <!-- jquery just in case -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+  
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- top banner -->
+        <div class="row banner">
+            <div class="col-md-12">
+                <a class="btn" href="index_AliensRReal.html" role="button">
+                    <h1 class="banner_text"> The <mark><b>TRUTH</b></mark> is 
+                        <mark><b>OUT THERE!</b></mark>
+                    </h1>  
+                </a>
+            </div>
+        </div>
+
+        <!-- search boxes -->
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="search_date">FILTER BY DATE/TIME</label>
+                    <input type="text" class="form-control" id="search_date" placeholder="Format: M/D/YYYY">
+                </div>
+                <div class="col-md-2">
+                    <label for="search_city">FILTER BY CITY</label>
+                    <input type="text" class="form-control" id="search_city" placeholder="city name">
+                </div>
+                <div class="col-md-2">
+                    <label for="search_state">FILTER BY STATE</label>
+                    <input type="text" class="form-control" id="search_state" placeholder="DC, Al, Ca, etc...">
+                </div>
+                <div class="col-md-2">
+                    <label for="search_country">FILTER BY COUNTRY</label>
+                    <input type="text" class="form-control" id="search_country" placeholder="US, CA, or AU">
+                </div>
+                <div class="col-md-2">
+                    <label for="search_shape">FILTER BY SHAPE OF UFO</label>
+                    <input type="text" class="form-control" id="search_shape" placeholder="light, fireball, circle, etc...">
+                </div>
+                <div class="col-md-2">
+                    <!-- Show all rows button --> 
+                    <div id="showAllBtn_row" class="row">
+                        <div class="col-md-12">
+                            <button id="show_All" type="button">
+                                Show All Rows
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- results per page option -->
+            <div class="row">
+                <div class="col-md-12">
+                    <p> </br> Results per page: <p>
+                    <select id="results_per_page">
+                        <option value=10>10</option>
+                        <option value=25>25</option>
+                        <option value=50>50</option>
+                        <option value=100 selected>100</option>
+                        <option value=500>500</option>
+                    </select>
+                </div>
+            </div>
+            <!-- regular search button -->
+            <div id="searchBtn" class="row">
+                <div class="col-md-12">
+                    <input type="submit" id="submit_search" value="Search">
+                </div>
+            </div>
+        </div>
+
+        <!-- banner #2, separating search box section from table section -->
+        <div class="row banner">
+            <div class="col-md-12">
+                <a class="btn" href="javascript: document.body.scrollIntoView(false);" role="button">
+                    <h3 class="banner_text"> Reports of <mark><b> UNIDENTIFIED FLYING OBJECTS</b></mark> 
+                        in the <mark><b> SKIES!!</mark></b>  
+                        &emsp;
+                        <b> TRUST <mark> NO ONE!!! </b> </mark> 
+                    </h3>
+                </a>
+            </div>
+        </div>
+        
+        <!-- table of ALIEN SIGHTINGS!! --> 
+        <div class="row">    
+             <!-- Let user know which page they're on -->
+            <div id="page_progress" class="col-md-2">
+            </div>
+
+            <!-- page input if users wants to go to a specific page # -->
+            <div id="goToPgBtn" class="col-md-1">
+                <label for="goToPage">Go to Page</label>
+                <input type="number" class="form-control" id="goToPage" min="1" value="1">
+                <input type="submit" id="submit_gotoPg" value="Go">
+                
+            </div>
+        </div>
+        
+        <div class="row">     <!-- Previous and Next buttons -->
+            <div id="prev_next_btn" class="col-md-12">
+            </div>
+        </div>
+
+        <div class="row">     <!-- Table Headers -->
+            <div class="col-md-12">
+                <table id="main" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><b>DATE/TIME</b></th>
+                            <th><b>CITY</b></th>
+                            <th><b>STATE</b></th>
+                            <th><b>COUNTRY</b></th>
+                            <th><b>SHAPE</b></th>
+                            <th><b>COMMENTS</b></th>
+                        </tr>
+                    </thead>
+                    <!-- javascript will insert data as <tr> here --> 
+                    <tbody class="PROOF_OF_ALIENS">
+                    </tbody>
+                </table>
+            </div>
+        </div> <!-- Ends table section  -->
+
+        <!-- Pagination -->
+        <!-- display the page progress ("page # out of #") -->
+        <div class="row">
+            <div id="page_progress" class="col-md-12">
+            </div>
+        </div>
+        <div class="row">     <!-- Previous and Next buttons -->
+            <div id="prev_next_btn" class="col-md-12">
+            </div>
+        </div>
+
+        <ul class="pagination">
+            <!-- example code. Maybe delete later 
+            <li class="next"><button class="page-link" href="#">Next</button></li>
+            -->
+        </ul>
+
+        <!-- footer banner -->
+        <div id="footer" class="row">
+            <div class="col-md-12">
+                <!-- when clicked, scroll to top: scrollIntoView(default) -->
+                <a id="to_top" class="btn" href="javascript: document.body.scrollIntoView();">
+                    <h3 class="banner_text"> <b> I <mark>WANT</mark> TO <mark>BELIEVE</mark> </b>
+                    </h3>
+                </a>
+                
+            </div>
+        </div>
+    </div> <!-- Ends container -->
+
+    <!-- Just for fun: Xfiles theme link -->
+    <div id="xfilesAudio" class="row">
+        <div class ="col-md-6">
+            <!-- audio controls autoplay loop  (I am so sorry ... or maybe not!) -->
+            <audio controls autoplay loop>
+                <source src="style/X - Files Theme Full (Illuminati Song).mp3" type="audio/mpeg">
+                    your browser does not support Html5
+            </audio>
+            <p>  ( source: 
+                <a href="https://archive.org/details/XFilesThemeFullIlluminatiSong"> 
+                    https://archive.org/details/XFilesThemeFullIlluminatiSong
+                </a>
+                )
+            </p>
+        </div>
+        <div class = "col-md-6">
+        </div>
+    </div>
+    
+    <script src="js/data.js" type="text/javascript"></script>
+    <script src="index_js.js" type="text/javascript"></script>
+</body>
+
+</html>

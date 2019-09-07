@@ -1,0 +1,53 @@
+
+.banner_text {
+    text-align: center;
+    color: white;
+}
+
+div.banner {
+    background-color: black;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#searchBtn {
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+#showAllBtn_row {
+    padding-top: 35px;
+    padding-left: 50px;
+}
+
+#page_progress{
+    padding-top: 10px;
+}
+
+#goToPgBtn{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+/* makes pagination at the end into a scrolling list */
+ul.pagination {
+
+    white-space:nowrap;
+    overflow: auto;
+    overflow-y: hidden;
+}
+.btn {
+    display:inline-block;
+}
+
+#footer {
+    background-color: black;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+#xfilesAudio {
+    padding-top:100px;
+}
